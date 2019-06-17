@@ -27,7 +27,7 @@ namespace SportsStore
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["Data:SportStoreProducts:ConnectionString"]));
-            services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddScoped<IProductRepository, EFProductRepository>();
             services.AddMvc();
         }
 
@@ -43,6 +43,7 @@ namespace SportsStore
                     name:"default",
                     template:"{controller=Product}/{action=List}/{id?}" );
             });
+            SeedData.EnsurePopulated(app);
         }
     }
 }
